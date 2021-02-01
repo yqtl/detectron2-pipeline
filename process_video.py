@@ -12,7 +12,7 @@ from pipeline.display_video import DisplayVideo
 from pipeline.save_video import SaveVideo
 from pipeline.utils import detectron
 from pipeline.track_pose import TrackPose
-
+from pipeline.save_json import SaveJSON
 
 def parse_args():
     import argparse
@@ -35,6 +35,8 @@ def parse_args():
                     help="separate background")
     ap.add_argument("-tp", "--track-pose", action="store_true",
                     help="track pose")
+    ap.add_argument("-sj", "--save-json", default="summary.json",
+                    help="output JSON summary file name")
 
     # Detectron settings
     ap.add_argument("--config-file",
@@ -119,6 +121,10 @@ def main(args):
                            capture_video.fps if args.fps is None else args.fps) \
         if args.out_video else None
 
+    save_json = SaveJSON(os.path.join(args.output, args.save_json)) \
+        if args.save_json else None    
+
+
     # Create image processing pipeline
     pipeline = (capture_video |
                 predict |
@@ -126,7 +132,9 @@ def main(args):
                 separate_background |
                 annotate_video |
                 display_video |
-                save_video)
+                #save_video)
+                save_video |
+                save_json)
 
     # Iterate through pipeline
     try:

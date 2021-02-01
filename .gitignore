@@ -11,3 +11,6 @@ __pycache__/
 
 # Project dependant
 output/
+
+#Codespaces related env
+venv/
