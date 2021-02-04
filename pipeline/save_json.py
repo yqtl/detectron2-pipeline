@@ -34,13 +34,13 @@ class SaveJSON(Pipeline):
             (start_x, start_y, end_x, end_y) = pose_flow["box"].astype("int")
             instance_keypoints = keypoints[idx]
             # Save bounding box
-            self.summary[image_id][instance_keypoints] = {
+            self.summary[image_id][pid] = {
                 "box": np.array([start_x, start_y, end_x, end_y], dtype=int).tolist(),
                 #"confidence": confidence.item()
                 #"keypoint": np.array(instance_keypoints)
             }
 
-        self.summary.write()
+        self.write()
         print(f"[INFO] Saving summary to {self.filename}...")
         return data
 
