@@ -1,3 +1,41 @@
+# Modification based on the work of jagin
+Added feature: saving bounding box for each frame.
+
+Under the repository directory `/detectron2-pipeline`, run the example command below:
+    
+    python process_video.py -i assets/videos/35G.mp4 -p -ov output.mp4 --cpus 1 --save-json summary.json --config-file configs/COCO-Keypoints/keypoint_rcnn_R_50_FPN_3x.yaml -tp
+
+The output is a JSON file with the following structure:
+frame number[ ], id number[ ], bounding box coordinates [x1,y1,x2,y2], where upperleft(x1,y1) and lowerright(x2,y2).
+Output example:
+
+
+    "000000": {
+        "0": {
+            "box": [
+                576,
+                343,
+                659,
+                575
+            ]
+        },
+        "1": {
+            "box": [
+                20,
+                590,
+                178,
+                805
+            ]
+        },
+        "2": {
+            "box": [
+                744,
+                470,
+                836,
+                647
+            ]
+        }
+
 # Detectron2 pipeline
 
 Modular image processing pipeline using OpenCV and Python generators powered by [Detectron2](https://github.com/facebookresearch/detectron2).  
